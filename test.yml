@@ -1,0 +1,30 @@
+name: Hung
+age: 28
+address: "Dong Thuan, Dong Thuan, Binh Minh, Binh Long"
+active: true
+key:
+  key: value
+  key2: value2
+  key3:
+    key: value
+    key2: value2
+jsonObject: { key: value, key2: 33, key3: { key: value, key2: value } }
+
+array:
+  - item1
+  - item2
+  - { key: value2 }
+
+jsonArray: [item1, item2, { key: value2 }]
+
+objectArray:
+  - { key: value, key2: value2 }
+  - key: value
+    key2: value2
+  - key3: value3
+    key4: value4
+longText: "Hello world,
+
+  Hello world, Hello world,
+
+  Hello world, Hello world"
