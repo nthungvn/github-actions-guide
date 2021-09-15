@@ -3,12 +3,13 @@ on:
   - push
 jobs:
   run_github_actions:
+    name: Use predefined Github Actions
     runs-on: ubuntu-latest
     steps:
       - name: List Files
         run: |
           pwd
-          ls
+          ls -a
       - name: Say Hello with actions
         id: greeting
         uses: actions/hello-world-javascript-action@v1.1
