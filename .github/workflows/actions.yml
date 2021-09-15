@@ -11,4 +11,4 @@ jobs:
         with:
           who-to-great: Hung
       - name: Log Greating Time
-        run: echo "${{ step.greeting.outputs.time }}"
+        run: echo "${{ steps.greeting.outputs.time }}"
