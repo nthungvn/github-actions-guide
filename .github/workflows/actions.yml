@@ -6,6 +6,12 @@ jobs:
     name: Use predefined Github Actions
     runs-on: ubuntu-latest
     steps:
+      - name: Inspect ENV
+        run: |
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "${{ github.token }}"
       - name: Checkout Repo
         uses: actions/checkout@v2
       - name: List Files
