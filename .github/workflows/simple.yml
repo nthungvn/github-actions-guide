@@ -18,6 +18,8 @@ jobs:
           print(platform.processor())
         shell: python
   run_shell_on_windows:
+    needs:
+      - run_shell_command
     name: Run Windows shell
     runs-on: windows-latest
     steps:
