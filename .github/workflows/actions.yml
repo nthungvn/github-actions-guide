@@ -9,6 +9,6 @@ jobs:
         id: greeting
         uses: actions/hello-world-javascript-action@v1.1
         with:
-          who-to-great: Hung
+          who-to-greet: Hung
       - name: Log Greating Time
         run: echo "${{ steps.greeting.outputs.time }}"
