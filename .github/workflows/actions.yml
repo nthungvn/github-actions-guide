@@ -1,0 +1,14 @@
+name: Actions workflow
+on:
+  - push
+jobs:
+  run_github_actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Hello with actions
+        id: greeting
+        uses: actions/hello-world-javascript-action@v1.1
+        with:
+          who-to-great: Hung
+      - name: Log Greating Time
+        run: echo "${{ step.greeting.outputs.time }}"
