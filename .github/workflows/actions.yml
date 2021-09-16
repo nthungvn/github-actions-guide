@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Payload
-        run: echo "${{ github.event.env }}"
+        run: echo "${{ github.event.client_payload.env }}"
       - name: Inspect ENV
         run: |
           echo $GITHUB_SHA
