@@ -17,6 +17,8 @@ jobs:
     name: Use predefined Github Actions
     runs-on: ubuntu-latest
     steps:
+      - name: Get Payload
+        run: echo "${{ github.event.env }}"
       - name: Inspect ENV
         run: |
           echo $GITHUB_SHA
