@@ -1,6 +1,7 @@
 name: Actions workflow
 on:
   - push
+  - pull_request
 jobs:
   run_github_actions:
     name: Use predefined Github Actions
