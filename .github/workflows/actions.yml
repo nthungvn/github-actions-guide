@@ -6,9 +6,12 @@ on:
       - opened
       - reopened
       - closed
-  schedule:
-    - cron: "0/5 * * * *"
-    - cron: "0/6 * * * *"
+  # schedule:
+  #   - cron: "0/5 * * * *"
+  #   - cron: "0/6 * * * *"
+  repository_dispatch:
+    types:
+      - build
 jobs:
   run_github_actions:
     name: Use predefined Github Actions
