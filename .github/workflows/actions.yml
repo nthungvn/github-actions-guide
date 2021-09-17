@@ -1,6 +1,14 @@
 name: Actions workflow
 on:
-  # push:
+  push:
+    branches:
+      - 02-trigger
+      - feature/*
+      - "!feature/test"
+    tags:
+      - v1.*
+    paths:
+      - src/**
   pull_request:
     types:
       - opened
