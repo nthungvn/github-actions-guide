@@ -25,6 +25,7 @@ jobs:
         env:
           RUNNER_CONTEXT: ${{ toJson(runner) }}
         run: echeo "$RUNNER_CONTEXT"
+        continue-on-error: true
       - name: Dum Strategy context
         if: ${{ always() }}
         env:
