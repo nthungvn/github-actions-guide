@@ -5,11 +5,22 @@ jobs:
   node_docker:
     name: Running Node in docker
     runs-on: ubuntu-latest
-    container:
-      image: node:17-alpine
+    services:
+      app:
+        image: alialaa17/node-api:latest
+        ports:
+          - 3001:3000
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
 
     steps:
-      - name: Log node version
+      - name: Post a user
         run: |
-          node -v
-          cat /etc/os-release
+          curl -X POST http://localhost:3001/api/user \
+            -H 'Content-Type: application/json' \
+            -d '{"username": "hello", "address": "Binh Minh"}'
+      - name: Get a users
+        run: |
+          curl -X GET http://localhost:3001/api/users
