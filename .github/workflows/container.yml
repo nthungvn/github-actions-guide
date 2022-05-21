@@ -23,6 +23,15 @@ jobs:
           entrypoint: /usr/local/bin/node
           args: -v
 
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run our own executable
+        uses: docker://node:17-alpine
+        with:
+          entrypoint: ./script.sh
+          args: world
+
   node_docker:
     name: Running Node in docker
     runs-on: ubuntu-latest
