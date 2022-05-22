@@ -43,7 +43,7 @@ docker run --rm -it \
   -w /react \
   -e CI=true \
   node:16-alpine \
-  npm test
+  npm test -- --coverage
 
 # Run build
 docker run --rm -it \
@@ -52,3 +52,18 @@ docker run --rm -it \
   -w /react \
   node:16-alpine \
   npm run build
+
+# Open shell
+docker run --rm -it \
+  -v $HOME/.npm:/root/.npm \
+  -v `pwd`:/react \
+  -w /react \
+  node:16-alpine sh
+
+npm install --global --force surge
+# Run surge and specify the folder build as deployment artifact
+surge
+
+# Domain: https://terrific-reaction.surge.sh
+# Email registered: nthung.vlvn@gmail.com
+# Docs: https://surge.sh/help/getting-started-with-surge
