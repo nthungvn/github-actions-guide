@@ -36,7 +36,7 @@ jobs:
         uses: docker://technosophos/slack-notify
         env:
           # Slack workspace: https://x-companytalk.slack.com/
-          SLACK_WEBHOOK: "https://hooks.slack.com/services/TPLA3K081/B03GCMFAEBX/{{ secrets.SLACK_TOKEN }}"
+          SLACK_WEBHOOK: https://hooks.slack.com/services/TPLA3K081/B03GCMFAEBX/${{ secrets.SLACK_TOKEN }}
           SLACK_MESSAGE: Hello world
 
   node_docker:
