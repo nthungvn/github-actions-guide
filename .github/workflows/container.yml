@@ -47,6 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       app:
+        # Repo: https://github.com/alialaa/simple-docker-nodejs-api
         image: alialaa17/node-api:latest
         ports:
           - 3001:3000
