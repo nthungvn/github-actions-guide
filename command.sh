@@ -67,3 +67,27 @@ surge
 # Domain: https://terrific-reaction.surge.sh
 # Email registered: nthung.vlvn@gmail.com
 # Docs: https://surge.sh/help/getting-started-with-surge
+
+
+# Run Install prettier
+# https://prettier.io/docs/en/install.html
+docker run --rm -it \
+  -v $HOME/.npm:/root/.npm \
+  -v `pwd`:/react \
+  -w /react \
+  node:16-alpine \
+  npm install --save-dev --save-exact prettier
+
+docker run --rm -it \
+  -v $HOME/.npm:/root/.npm \
+  -v `pwd`:/react \
+  -w /react \
+  node:16-alpine \
+  npm run format:check
+
+docker run --rm -it \
+  -v $HOME/.npm:/root/.npm \
+  -v `pwd`:/react \
+  -w /react \
+  node:16-alpine \
+  npm run format

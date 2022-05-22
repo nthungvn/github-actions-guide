@@ -1,0 +1,9 @@
+# Ignore artifacts:
+.github
+.prettierrc.json
+build
+coverage
+node_modules
+package-lock.json
+README.md
+test.yml
