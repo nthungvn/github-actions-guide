@@ -1,0 +1,34 @@
+name: Shell Commands
+on:
+  # - push
+  - pull_request
+jobs:
+  run_shell_command:
+    name: Run Shell Commands
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - name: echo a string
+        run: echo "Hello world"
+        continue-on-error: true
+        timeout-minutes: 5
+      - name: multiline script
+        run: |
+          node -v
+          npm -v
+      - name: python command
+        run: |
+          import platform
+          print(platform.processor())
+        shell: python
+  run_shell_on_windows:
+    needs:
+      - run_shell_command
+    name: Run Windows shell
+    runs-on: windows-latest
+    steps:
+      - name: Directory PowerShell
+        run: Get-Location
+      - name: Directory Bash
+        shell: bash
+        run: pwd
