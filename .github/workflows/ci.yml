@@ -54,6 +54,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-coverage
+          if-no-files-found: error
           path: ./coverage/lcov-report
           retention-days: 1
 
@@ -67,6 +68,7 @@ jobs:
         with:
           name: build-artifact
           path: ./build
+          if-no-files-found: error
           retention-days: 1
 
       # - name: Install surge globally
