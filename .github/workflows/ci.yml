@@ -15,6 +15,9 @@ jobs:
   build:
     name: Build the project
     runs-on: ubuntu-latest
+    env:
+      SURGE_LOGIN: nthung.vlvn@gmail.com
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
     steps:
       - name: Checkout the project
         uses: actions/checkout@v3
@@ -94,14 +97,17 @@ jobs:
       - name: Deploy to staging
         if: github.event_name == 'push' && contains(github.event.ref, 'develop')
         run: npm run deploy
-        env:
-          SURGE_LOGIN: nthung.vlvn@gmail.com
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 
       - name: Deploy to Production Server
         if: github.event_name == 'push' && contains(github.event.ref, 'master')
-        run: echo "Deploy to Production Server"
+        run: npm run deploy
 
       - name: Upload coverage to Codecov
         if: github.event_name == 'push' && contains(github.event.ref, 'master')
-        run: echo "Upload coverage to Codecov"
+        uses: actions/codecov@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
