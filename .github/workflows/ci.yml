@@ -1,6 +1,10 @@
 name: CI
 on:
-  push: # For testing workflow
+  push:
+    branches:
+      -  "*" # For testing workflow
+      - develop
+
   pull_request:
     branches:
       - develop
@@ -27,3 +31,17 @@ jobs:
         run: npm test -- --coverage
         env:
           CI: true
+      - name: Build the project
+        if: github.event_name == 'push'
+        run: npm run build
+
+      # - name: Install surge globally
+      #   if: github.event_name == 'push'
+      #   run: npm install -g surge
+
+      - name: Deploy to staging
+        if: github.event_name == 'push'
+        run: npm run deploy
+        env:
+          SURGE_LOGIN: nthung.vlvn@gmail.com
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
