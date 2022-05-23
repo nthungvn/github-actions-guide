@@ -78,6 +78,7 @@ docker run --rm -it \
   node:16-alpine \
   npm install --save-dev --save-exact prettier
 
+# Run the prettier check
 docker run --rm -it \
   -v $HOME/.npm:/root/.npm \
   -v `pwd`:/react \
@@ -85,9 +86,18 @@ docker run --rm -it \
   node:16-alpine \
   npm run format:check
 
+# Run the prettier format (override) code
 docker run --rm -it \
   -v $HOME/.npm:/root/.npm \
   -v `pwd`:/react \
   -w /react \
   node:16-alpine \
   npm run format
+
+# Run the install semantic-release
+docker run --rm -it \
+  -v $HOME/.npm:/root/.npm \
+  -v `pwd`:/react \
+  -w /react \
+  node:16-alpine \
+  npm install --save-dev semantic-release
