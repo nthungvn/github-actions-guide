@@ -18,7 +18,8 @@
     "eject": "react-scripts eject",
     "format:check": "prettier --check \"**/*.{js,jsx,yml,yaml,json,css, scss,md}\"",
     "format": "prettier --write \"**/*.{js,jsx,yml,yaml,json,css, scss,md}\"",
-    "deploy": "surge --project ./build --domain terrific-reaction.surge.sh"
+    "deploy": "surge --project ./build --domain terrific-reaction.surge.sh",
+    "release": "semantic-release"
   },
   "eslintConfig": {
     "extends": [
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "prettier": "2.6.2",
+    "semantic-release": "^19.0.2",
     "surge": "^0.23.1"
   }
 }

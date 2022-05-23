@@ -4,14 +4,20 @@ on:
     branches:
       # -  "*" # For testing workflow
       - develop
+      - master
 
   pull_request:
     branches:
       - develop
+      - master
+
 jobs:
   build:
     name: Build the project
     runs-on: ubuntu-latest
+    env:
+      SURGE_LOGIN: nthung.vlvn@gmail.com
+      SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
     steps:
       - name: Checkout the project
         uses: actions/checkout@v3
@@ -75,9 +81,33 @@ jobs:
       #   if: github.event_name == 'push'
       #   run: npm install -g surge
 
-      - name: Deploy to staging
-        if: github.event_name == 'push'
-        run: npm run deploy
+      - name: Zip the Assets
+        if: github.event_name == 'push' && contains(github.event.ref, 'master')
+        run: |
+          zip -r build.zip ./build
+          zip -r coverage.zip ./coverage/lcov-report
+
+      - name: Create a Release
+        # We can use github.ref as the alternative
+        if: github.event_name == 'push' && contains(github.event.ref, 'master')
+        run: npm run release
         env:
-          SURGE_LOGIN: nthung.vlvn@gmail.com
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to staging
+        if: github.event_name == 'push' && contains(github.event.ref, 'develop')
+        run: npm run deploy
+
+      - name: Deploy to Production Server
+        if: github.event_name == 'push' && contains(github.event.ref, 'master')
+        run: npm run deploy
+
+      - name: Upload coverage to Codecov
+        if: github.event_name == 'push' && contains(github.event.ref, 'master')
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
