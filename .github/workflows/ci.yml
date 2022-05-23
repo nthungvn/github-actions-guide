@@ -104,7 +104,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         if: github.event_name == 'push' && contains(github.event.ref, 'master')
-        uses: actions/codecov@v2
+        uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: unittests # optional
