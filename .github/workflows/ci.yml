@@ -2,7 +2,7 @@ name: CI
 on:
   push:
     branches:
-      -  "*" # For testing workflow
+      # -  "*" # For testing workflow
       - develop
 
   pull_request:
