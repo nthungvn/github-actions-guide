@@ -49,9 +49,24 @@ jobs:
         run: npm test -- --coverage
         env:
           CI: true
+
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-coverage
+          path: ./coverage/lcov-report
+          retention-days: 1
+
       - name: Build the project
         if: github.event_name == 'push'
         run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifact
+          path: ./build
+          retention-days: 1
 
       # - name: Install surge globally
       #   if: github.event_name == 'push'
