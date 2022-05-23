@@ -78,6 +78,12 @@ jobs:
       #   if: github.event_name == 'push'
       #   run: npm install -g surge
 
+      - name: Zip the Assets
+        if: github.event_name == 'push' && contains(github.event.ref, 'master')
+        run: |
+          zip -r build.zip ./build
+          zip -r coverage.zip ./coverage/lcov-report
+
       - name: Create a Release
         # We can use github.ref as the alternative
         if: github.event_name == 'push' && contains(github.event.ref, 'master')
@@ -86,7 +92,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy to staging
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && contains(github.event.ref, 'develop')
         run: npm run deploy
         env:
           SURGE_LOGIN: nthung.vlvn@gmail.com
