@@ -4,10 +4,13 @@ on:
     branches:
       # -  "*" # For testing workflow
       - develop
+      - master
 
   pull_request:
     branches:
       - develop
+      - master
+
 jobs:
   build:
     name: Build the project
@@ -75,9 +78,24 @@ jobs:
       #   if: github.event_name == 'push'
       #   run: npm install -g surge
 
+      - name: Create a Release
+        # We can use github.ref as the alternative
+        if: github.event_name == 'push' && contains(github.event.ref, 'master')
+        run: npm run release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Deploy to staging
         if: github.event_name == 'push'
         run: npm run deploy
         env:
           SURGE_LOGIN: nthung.vlvn@gmail.com
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+
+      - name: Deploy to Production Server
+        if: github.event_name == 'push' && contains(github.event.ref, 'master')
+        run: echo "Deploy to Production Server"
+
+      - name: Upload coverage to Codecov
+        if: github.event_name == 'push' && contains(github.event.ref, 'master')
+        run: echo "Upload coverage to Codecov"
