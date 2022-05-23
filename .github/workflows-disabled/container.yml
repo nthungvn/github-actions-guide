@@ -1,0 +1,67 @@
+name: Container
+on:
+  - push
+jobs:
+  docker-container:
+    name: Running Docker in individual steps
+    runs-on: ubuntu-latest
+    container:
+      image: node:17-alpine
+    steps:
+      - name: Log the node version
+        run: node -v
+
+      - name: Step with docker
+        uses: docker://node:17-alpine
+        with:
+          entrypoint: /bin/echo
+          args: Hello world
+
+      - name: Step with docker
+        uses: docker://node:17-alpine
+        with:
+          entrypoint: /usr/local/bin/node
+          args: -v
+
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run our own executable
+        uses: docker://node:17-alpine
+        with:
+          entrypoint: ./script.sh
+          args: world
+        continue-on-error: true
+      - name: Send the Slack message
+        uses: docker://technosophos/slack-notify
+        env:
+          # Slack workspace: https://x-companytalk.slack.com/
+          SLACK_WEBHOOK: https://hooks.slack.com/services/TPLA3K081/B03GCMFAEBX/${{ secrets.SLACK_TOKEN }}
+          SLACK_MESSAGE: Hello world
+          SLACK_TITLE: Test Github Action
+          SLACK_COLOR: "#EFEFEF"
+          SLACK_USERNAME: BotCI
+
+  node_docker:
+    name: Running Node in docker
+    runs-on: ubuntu-latest
+    services:
+      app:
+        # Repo: https://github.com/alialaa/simple-docker-nodejs-api
+        image: alialaa17/node-api:latest
+        ports:
+          - 3001:3000
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Post a user
+        run: |
+          curl -X POST http://localhost:3001/api/user \
+            -H 'Content-Type: application/json' \
+            -d '{"username": "hello", "address": "Binh Minh"}'
+      - name: Get a users
+        run: |
+          curl -X GET http://localhost:3001/api/users

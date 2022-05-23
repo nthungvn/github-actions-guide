@@ -1,0 +1,18 @@
+name: Function Action
+on:
+  - push
+
+jobs:
+  dump_context:
+    name: Function Action
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use function
+        run: |
+          echo "${{ contains(github.event.issue.labels.*.name, 'bug') }}"
+          echo "${{ contains('Hello world', 'llo') }}"
+          echo "${{ startsWith('Hello world', 'He') }}"
+          echo "${{ endsWith('Hello world', 'ld') }}"
+          echo "${{ format('{{Hello {0} {1} {2}!}}', 'Mona', 'the', 'Octocat') }}"
+          echo "${{ join(github.event.issue.labels.*.name, ', ') }}"
+          echo "${{ toJSON(job) }}"

@@ -1,0 +1,48 @@
+name: Actions workflow
+on:
+  push:
+    branches:
+      - 02-trigger
+      - feature/*
+      - "!feature/test"
+    tags:
+      - v1.*
+    paths:
+      - src/**
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - closed
+  # schedule:
+  #   - cron: "0/5 * * * *"
+  #   - cron: "0/6 * * * *"
+  repository_dispatch:
+    types:
+      - build
+jobs:
+  run_github_actions:
+    name: Use predefined Github Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Payload
+        run: echo "${{ github.event.client_payload.env }}"
+      - name: Inspect ENV
+        run: |
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "${{ github.token }}"
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+      - name: Say Hello with actions
+        id: greeting
+        uses: actions/hello-world-javascript-action@v1.1
+        with:
+          who-to-greet: Hung
+      - name: Log Greating Time
+        run: echo "${{ steps.greeting.outputs.time }}"
