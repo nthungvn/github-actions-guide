@@ -101,3 +101,12 @@ docker run --rm -it \
   -w /react \
   node:16-alpine \
   npm install --save-dev semantic-release
+
+# Install the commitlint
+
+docker run --rm -it \
+  -v $HOME/.npm:/root/.npm \
+  -v `pwd`:/react \
+  -w /react \
+  node:16-alpine \
+  npm install --save-dev @commitlint/config-conventional @commitlint/cli husky@v4
