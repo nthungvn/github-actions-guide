@@ -92,7 +92,7 @@ jobs:
         if: github.event_name == 'push' && contains(github.event.ref, 'master')
         run: npm run release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
 
       - name: Deploy to staging
         if: github.event_name == 'push' && contains(github.event.ref, 'develop')
@@ -111,3 +111,16 @@ jobs:
           name: codecov-umbrella # optional
           fail_ci_if_error: true # optional (default = false)
           verbose: true # optional (default = false)
+
+      - name: Open issue when the job failed
+        if: failure() && github.event_name == 'pull_request'
+        uses: actions-ecosystem/action-create-issue@v1
+        with:
+          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+          title: "Automated issue for commit: ${{ github.sha }}"
+          body: |
+            This issue was automatically created by the Github Action workflow **${{ github.workflow }}**
+
+            The commit hash was: _${{ github.sha }}_
+
+          assignees: ${{ github.event.pull_request.user.login }}
