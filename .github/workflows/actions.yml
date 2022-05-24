@@ -6,11 +6,11 @@ on:
       - feature/*
       - "!feature/test"
       - 06-create-github-action
-      - "*"
     tags:
       - v1.*
     paths:
       - src/**
+      - ./github/actions/hello-world-javascript-action
   pull_request:
     types:
       - opened
