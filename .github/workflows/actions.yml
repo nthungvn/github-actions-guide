@@ -5,6 +5,7 @@ on:
       - 02-trigger
       - feature/*
       - "!feature/test"
+      - 06-create-github-action
     tags:
       - v1.*
     paths:
@@ -41,8 +42,8 @@ jobs:
           ls -a
       - name: Say Hello with actions
         id: greeting
-        uses: actions/hello-world-javascript-action@v1.1
+        uses: ./github/actions/hello-world-javascript-action
         with:
           who-to-greet: Hung
-      - name: Log Greating Time
+      - name: Log Greeting Time
         run: echo "${{ steps.greeting.outputs.time }}"
