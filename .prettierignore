@@ -1,5 +1,6 @@
 # Ignore artifacts:
-.github
+.github/workflow
+.github/workflow-disabled
 .prettierrc.json
 build
 coverage
