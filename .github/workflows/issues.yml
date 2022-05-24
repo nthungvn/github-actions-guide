@@ -1,0 +1,20 @@
+name: Notify Issue created
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  slack-message:
+    name: Send slack message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack message
+        uses: docker://technosophos/slack-notify
+        env:
+          # Slack workspace: https://x-companytalk.slack.com/
+          SLACK_WEBHOOK: https://hooks.slack.com/services/TPLA3K081/B03GCMFAEBX/${{ secrets.SLACK_TOKEN }}
+          SLACK_MESSAGE: "New issue created: <${{ github.event.issue.html_url}}|${{ github.event.issue.title }}.>"
+          SLACK_TITLE: Workflow ran failed
+          SLACK_COLOR: "#235731"
+          SLACK_USERNAME: BotCI
