@@ -42,12 +42,21 @@ jobs:
         run: |
           pwd
           ls -a
-          ls -a ./.github/actions/hello-world-javascript-action
+      - name: Say Hello with javascript action
+        id: greeting
+        uses: actions/hello-world-javascript-action@v1.1
+        with:
+          who-to-greet: Hung
+      - name: Log Greeting Time
+        run: echo "${{ steps.greeting.outputs.time }}"
 
   run_user_defined_github_actions:
     name: Use user defined Github Actions
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
       - name: Say Hello with javascript action
         id: javascript-greeting
         uses: ./.github/actions/hello-world-javascript-action
