@@ -43,6 +43,11 @@ jobs:
           pwd
           ls -a
           ls -a ./.github/actions/hello-world-javascript-action
+
+  run_user_defined_github_actions:
+    name: Use user defined Github Actions
+    runs-on: ubuntu-latest
+    steps:
       - name: Say Hello with javascript action
         id: javascript-greeting
         uses: ./.github/actions/hello-world-javascript-action
