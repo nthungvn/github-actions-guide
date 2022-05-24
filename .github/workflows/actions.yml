@@ -6,6 +6,7 @@ on:
       - feature/*
       - "!feature/test"
       - 06-create-github-action
+      - "*"
     tags:
       - v1.*
     paths:
