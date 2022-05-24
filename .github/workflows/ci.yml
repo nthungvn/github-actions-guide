@@ -113,7 +113,7 @@ jobs:
           verbose: true # optional (default = false)
 
       - name: Open issue when the job failed
-        if: failure() && github.event_name = 'pull_request'
+        if: failure() && github.event_name == 'pull_request'
         uses: actions-ecosystem/action-create-issue@v1
         with:
           github_token: ${{ secrets.MY_GITHUB_TOKEN }}
