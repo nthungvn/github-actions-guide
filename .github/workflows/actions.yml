@@ -64,7 +64,9 @@ jobs:
         with:
           who-to-greet: Hung
       - name: Log Greeting Time
-        run: echo "${{ steps.javascript-greeting.outputs.time }}"
+        run: |
+          echo "${{ steps.javascript-greeting.outputs.time }}"
+          echo $INPUT_NAME
 
       - name: Say Hello with docker action
         id: docker-greeting
