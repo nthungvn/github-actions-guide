@@ -43,10 +43,18 @@ jobs:
           pwd
           ls -a
           ls -a ./.github/actions/hello-world-javascript-action
-      - name: Say Hello with actions
-        id: greeting
+      - name: Say Hello with javascript action
+        id: javascript-greeting
         uses: ./.github/actions/hello-world-javascript-action
         with:
           who-to-greet: Hung
       - name: Log Greeting Time
-        run: echo "${{ steps.greeting.outputs.time }}"
+        run: echo "${{ steps.javascript-greeting.outputs.time }}"
+
+      - name: Say Hello with docker action
+        id: docker-greeting
+        uses: ./.github/actions/hello-world-docker-action
+        with:
+          who-to-greet: Hung
+      - name: Log Greeting Time
+        run: echo "${{ steps.docker-greeting.outputs.time }}"
