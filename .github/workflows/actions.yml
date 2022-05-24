@@ -10,7 +10,8 @@ on:
       - v1.*
     paths:
       - src/**
-      - ./github/actions/hello-world-javascript-action/**
+      - .github/actions/hello-world-javascript-action/**
+      - .github/workflows/**
   pull_request:
     types:
       - opened
