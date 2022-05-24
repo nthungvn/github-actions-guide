@@ -63,3 +63,11 @@ jobs:
           who-to-greet: Hung
       - name: Log Greeting Time
         run: echo "${{ steps.docker-greeting.outputs.time }}"
+
+      - name: Say Hello with composite action
+        id: composite-greeting
+        uses: ./.github/actions/hello-world-composite-action
+        with:
+          who-to-greet: Hung
+      - name: Log Greeting Time
+        run: echo "${{ steps.composite-greeting.outputs.time }}"
