@@ -1,0 +1,19 @@
+name: Notify on Release
+on:
+  release:
+    types:
+      - published
+jobs:
+  slack-message:
+    name: Send slack message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack message
+        uses: docker://technosophos/slack-notify
+        env:
+          # Slack workspace: https://x-companytalk.slack.com/
+          SLACK_WEBHOOK: https://hooks.slack.com/services/TPLA3K081/B03GCMFAEBX/${{ secrets.SLACK_TOKEN }}
+          SLACK_MESSAGE: New release ${{ github.event.release.tag_name }} is out, <${{ github.event.release.html_url}}|check it out now.>
+          SLACK_TITLE: Github Action
+          SLACK_COLOR: "#235731"
+          SLACK_USERNAME: BotCI
