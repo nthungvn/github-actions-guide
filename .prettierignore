@@ -1,5 +1,7 @@
 # Ignore artifacts:
-.github
+.github/workflow
+.github/workflows-disabled
+.github/actions/hello-world-javascript-action/dist
 .prettierrc.json
 build
 coverage
