@@ -42,6 +42,7 @@ jobs:
         run: |
           pwd
           ls -a
+          ls -a ./github/actions/hello-world-javascript-action
       - name: Say Hello with actions
         id: greeting
         uses: ./github/actions/hello-world-javascript-action
