@@ -11,6 +11,7 @@ on:
     paths:
       - src/**
       - .github/actions/hello-world-javascript-action/**
+      - .github/actions/hello-world-composite-action/**
       - .github/workflows/**
   pull_request:
     types:
