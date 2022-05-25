@@ -1,0 +1,14 @@
+name: Slack Notify
+description: Sending a slack message with workflow information
+inputs:
+  message:
+    description: Message will be sent
+    required: true
+  token:
+    description: Slack token
+    required: true
+runs:
+  using: docker
+  image: Dockerfile
+  env:
+    SLACK_TOKEN: ${{ inputs.token }}

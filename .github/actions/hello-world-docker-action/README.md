@@ -1,4 +1,4 @@
-# Hello world javascript action
+# Hello world docker action
 
 This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
 
@@ -17,7 +17,7 @@ The time we greeted you.
 ## Example usage
 
 ```yml
-uses: actions/hello-world-javascript-action@v1.1
+uses: actions/hello-world-docker-action@v1
 with:
   who-to-greet: 'Mona the Octocat'
 ```

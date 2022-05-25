@@ -1,0 +1,111 @@
+name: Actions workflow
+on:
+  push:
+    branches:
+      - 02-trigger
+      - feature/*
+      - "!feature/test"
+      - 06-create-github-action
+    tags:
+      - v1.*
+    paths:
+      - src/**
+      - .github/actions/hello-world-javascript-action/**
+      - .github/actions/hello-world-composite-action/**
+      - .github/actions/hello-world-docker-action/**
+      - .github/actions/slack-php-action/**
+      - .github/workflows/**
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - closed
+  # schedule:
+  #   - cron: "0/5 * * * *"
+  #   - cron: "0/6 * * * *"
+  repository_dispatch:
+    types:
+      - build
+jobs:
+  run_github_actions:
+    name: Use predefined Github Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Payload
+        run: echo "${{ github.event.client_payload.env }}"
+      - name: Inspect ENV
+        run: |
+          echo $GITHUB_SHA
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_WORKSPACE
+          echo "${{ github.token }}"
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: List Files
+        run: |
+          pwd
+          ls -a
+      - name: Say Hello with javascript action
+        id: greeting
+        uses: actions/hello-world-javascript-action@v1.1
+        with:
+          who-to-greet: Hung
+      - name: Log Greeting Time
+        run: echo "${{ steps.greeting.outputs.time }}"
+
+  run_user_defined_github_actions:
+    name: Use user defined Github Actions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Say Hello with javascript action
+        id: javascript-greeting
+        uses: ./.github/actions/hello-world-javascript-action
+        with:
+          who-to-greet: Hung
+      - name: Log Greeting Time
+        run: |
+          echo "${{ steps.javascript-greeting.outputs.time }}"
+          echo $INPUT_NAME
+
+      - name: Say Hello with docker action
+        id: docker-greeting
+        uses: ./.github/actions/hello-world-docker-action
+        with:
+          who-to-greet: Hung
+      - name: Log Greeting Time
+        run: echo "${{ steps.docker-greeting.outputs.time }}"
+
+      - name: Say Hello with composite action
+        id: composite-greeting
+        uses: ./.github/actions/hello-world-composite-action
+        with:
+          who-to-greet: Hung
+      - name: Log Greeting Time
+        run: echo "${{ steps.composite-greeting.outputs.time }}"
+
+      ## Comment out to prevent create multiple issues when testing
+      # - name: Create an issue
+      #   id: github-issue
+      #   uses: ./.github/actions/github-create-issue
+      #   with:
+      #     github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+      #     title: "Automated issue for commit: ${{ github.sha }}"
+      #     body: |
+      #       This issue was automatically created by the Github Action workflow **${{ github.workflow }}**
+
+      #       The commit hash was: _${{ github.sha }}_
+
+      #     assignees: |
+      #       nthungvn
+      # - name: Log Github Create issue output
+      #   run: echo "${{ steps.github-issue.outputs.issue }}"
+
+      - name: Send Slack message
+        id: docker-slack
+        uses: ./.github/actions/slack-php-action
+        with:
+          token: ${{ secrets.SLACK_TOKEN }}
+          message: Hello Slack

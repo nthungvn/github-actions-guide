@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  slack_php_action:
+    build: .
+    image: slack-php-action:latest
+    environment:
+      SLACK_TOKEN: ${SLACK_TOKEN}
+      INPUT_MESSAGE: ${INPUT_MESSAGE}
+      GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}
+      GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}
+      GITHUB_REF: ${GITHUB_REF}
+      GITHUB_SHA: ${GITHUB_SHA}
