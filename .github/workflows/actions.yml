@@ -103,7 +103,7 @@ jobs:
         run: echo "${{ steps.github-issue.outputs.issue }}"
 
       - name: Send Slack message
-        id: docker-greeting
+        id: docker-slack
         uses: ./.github/actions/slack-php-action
         with:
           token: ${{ secrets.SLACK_TOKEN }}
