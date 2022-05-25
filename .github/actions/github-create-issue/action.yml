@@ -1,0 +1,24 @@
+name: Github Create Issue
+description: Create the Github issue
+author: Hung
+
+inputs:
+  github-token:
+    description: The Github token
+    required: true
+  title:
+    description: The title of the issue
+    required: true
+  body:
+    description: The body of the issue
+    required: false
+  assignees:
+    description: The assignees of the issue
+    required: false
+outputs:
+  issue:
+    description: The issue object as the JSON string
+
+runs:
+  using: node16
+  main: dist/index.js
