@@ -13,6 +13,7 @@ on:
       - .github/actions/hello-world-javascript-action/**
       - .github/actions/hello-world-composite-action/**
       - .github/actions/hello-world-docker-action/**
+      - .github/actions/slack-php-action/**
       - .github/workflows/**
   pull_request:
     types:
@@ -100,3 +101,10 @@ jobs:
             nthungvn
       - name: Log Github Create issue output
         run: echo "${{ steps.github-issue.outputs.issue }}"
+
+      - name: Send Slack message
+        id: docker-greeting
+        uses: ./.github/actions/slack-php-action
+        with:
+          token: ${{ secrets.SLACK_TOKEN }}
+          message: Hello Slack
