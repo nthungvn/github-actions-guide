@@ -9,7 +9,9 @@ $eventName = $_ENV["GITHUB_EVENT_NAME"];
 $ref = $_ENV["GITHUB_REF"];
 $sha = $_ENV["GITHUB_SHA"];
 
-var_dump($_ENV);
+// var_dump($_ENV);
+
+echo "::debug::Sending a new request to slack\n";
 
 $body = array(
     "blocks" => array(
@@ -48,10 +50,15 @@ $response = Requests::post("https://hooks.slack.com/services/TPLA3K081/B03GCMFAE
     'Content-Type' => 'application/json'
 ) , json_encode($body));
 
+echo "::group::Slack response\n";
 var_dump($response);
+echo "::endgroup::\n"
 
 if (!$response->success)
 {
+    echo "::group::Slack error\n";
     echo $response->body;
+    echo "::endgroup::\n"
+    exit(1);
 }
 
