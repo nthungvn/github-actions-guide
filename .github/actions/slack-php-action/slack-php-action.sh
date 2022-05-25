@@ -6,6 +6,8 @@ docker run --rm --interactive --tty \
   --volume ${COMPOSER_HOME:-$HOME/.composer}:/tmp \
   composer require rmccue/requests
 
+sudo chown ubuntu:ubuntu .github/actions/slack-php-action/composer.json
+sudo chown ubuntu:ubuntu .github/actions/slack-php-action/composer.lock
 
 # Test send the message
 # Find the token here: https://api.slack.com/apps/A03GFJKHU58/install-on-team?
