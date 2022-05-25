@@ -1,9 +1,13 @@
 # Ignore artifacts:
-.github
+.github/workflow
+.github/workflows-disabled
+.github/actions/hello-world-javascript-action/dist
+.github/actions/github-create-issue/dist
 .prettierrc.json
 build
 coverage
 node_modules
 package-lock.json
-README.md
+./README.md
 test.yml
+vendor/
