@@ -58,7 +58,7 @@ if (!$response->success)
 {
     echo "::group::Slack error\n";
     echo $response->body;
-    echo "::endgroup::\n"
+    echo "::endgroup::\n";
     exit(1);
 }
 
