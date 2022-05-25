@@ -12,6 +12,7 @@ on:
       - src/**
       - .github/actions/hello-world-javascript-action/**
       - .github/actions/hello-world-composite-action/**
+      - .github/actions/hello-world-docker-action/**
       - .github/workflows/**
   pull_request:
     types:
