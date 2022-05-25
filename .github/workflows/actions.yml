@@ -83,3 +83,19 @@ jobs:
           who-to-greet: Hung
       - name: Log Greeting Time
         run: echo "${{ steps.composite-greeting.outputs.time }}"
+
+      - name: Create an issue
+        id: github-issue
+        uses: ./.github/actions/github-create-issue
+        with:
+          github-token: ${{ secrets.MY_GITHUB_TOKEN }}
+          title: "Automated issue for commit: ${{ github.sha }}"
+          body: |
+            This issue was automatically created by the Github Action workflow **${{ github.workflow }}**
+
+            The commit hash was: _${{ github.sha }}_
+
+          assignees: |
+            nthungvn
+      - name: Log Github Create issue output
+        run: echo "${{ steps.github-issue.outputs.issue }}"
