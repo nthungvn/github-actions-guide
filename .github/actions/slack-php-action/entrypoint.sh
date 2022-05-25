@@ -1,3 +1,3 @@
 #!/bin/sh -l
 
-php script.php
+php /app/script.php
