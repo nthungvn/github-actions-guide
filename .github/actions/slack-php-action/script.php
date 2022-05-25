@@ -52,7 +52,7 @@ $response = Requests::post("https://hooks.slack.com/services/TPLA3K081/B03GCMFAE
 
 echo "::group::Slack response\n";
 var_dump($response);
-echo "::endgroup::\n"
+echo "::endgroup::\n";
 
 if (!$response->success)
 {
